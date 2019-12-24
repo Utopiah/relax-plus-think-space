@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet">
+
+    <script src="setup/upload/server/php/files/usersdb.js"></script>
+    <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
+  </head>
+<style>
+body { background-color: transparent; }
+
+#email, #sms {
+	font-size: xx-large;
+}
+</style>
+
+  <body>
+
+<img src="setup/productlogo.png">
+
+<h3>flat viewer by category sorted by position</h3>
+
+<div id="spacesholder">Your spaces:
+	<ul id="spaces"></ul>
+</div>
+
+<div>Already have an account? <span onclick="login()" style="text-decoration: underline;">Log-in</span>
+	<form>
+		<div id="login" style="display:none"><input id="useremail"/>
+		<button style="margin-top:2px;" type="button" onclick="loginViaEmail()" id="loginemail" class="btn btn-lg btn-primary btn-block">Login</button>
+		</div>
+	</form>
+	<div style="display:none" id="nouser">User not found. Double check your email address then contact fabien@iterative-explorations.com</a></div>
+</div>
+
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+const email = urlParams.get('email');
+if (email) loginViaEmail()
+
+var uploadedURL = "setup/upload/server/php/files/";
+var images = []
+var url = "/"
+var urlParameters = "?customimages="
+var userspace
+
+function login(){
+	document.querySelector("#login").style.display = "block"
+}
+
+function findCategory(image){
+	if (!userspace) return
+	console.log(image.filename)
+	var imagePos = new THREE.Vector3();
+	imagePos.copy ( AFRAME.utils.coordinates.parse(image.position) )
+
+	var closest
+	var smallestDistance = 1000
+	for (var category of userspace.categories){
+		var categoryPos = new THREE.Vector3();
+		categoryPos.copy ( AFRAME.utils.coordinates.parse(category.position) )
+		var distance = categoryPos.distanceTo( imagePos )
+		if (distance < smallestDistance){
+			smallestDistance = distance
+			closest = category.label
+		}
+		console.log(distance, category.label)
+	}
+
+	return closest
+}
+
+function loginViaEmail(){
+	var path = "setup/"
+	if (!email)
+		email = document.querySelector("#useremail").value
+	userspace = database[email]
+	if (!userspace){ 
+		document.querySelector("#nouser").style.display = "block"
+		return
+	}
+
+	document.querySelector("#spacesholder").style.display = "block"
+	var spaces = document.querySelector("#spaces")
+	var space = document.createElement("li")
+	var spacelink = document.createElement("a")
+	var images = userspace.files
+	spacelink.href = url + urlParameters
+	spacelink.target = "_blank"
+	spacelink.innerHTML = userspace.last_login
+	space.appendChild(spacelink)
+	for (var image of images){
+		urlParameters += image.filename + ","
+		space.innerHTML += path + image.filename + " " + findCategory( image )	
+	}
+	console.log(space)
+	spaces.appendChild(space)	
+	console.log("userspace", userspace)
+}
+</script>
+
+<h3 style="position:absolute; bottom:0px; right:0px;">A product by <a href="https://iterative-explorations.com"><img width="200px" src="https://iterative-explorations.com/logo.svg"></a>.</h3>
+
+  </body>
+</html>

@@ -1,0 +1,150 @@
+<head>
+  <meta charset="UTF-8">
+  <title>Think + Relax space by Iterative Explorations</title>
+  <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
+  <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
+  <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
+  <script src="https://unpkg.com/super-hands@3.0.0/dist/super-hands.min.js"></script>
+  <script src="pimvrhelpers.js"></script>
+</head>
+<script>
+// could add an in VR edit mode for the categories, to position them, name them, etc
+// should be mostly for adjustments
+var timer = AFRAME.utils.getUrlParameter('timer')
+if (!timer) timer = 300 //5min
+
+function saveNewItemsPosition(){
+        var selector = ".notes";
+        var pos = ""
+        document.querySelectorAll(selector).forEach(
+                e => pos += "\n" + AFRAME.utils.coordinates.stringify( e.getAttribute("position") )
+        )
+        pimvrSaveRemote("WeWorkTest", pos) // from pimvrhelpers.js
+	// should be saved by username by space
+	// could be pointed at from the database file (thus having multiple storages)
+}
+
+AFRAME.registerComponent("watch", {
+  init: function() {
+	document.querySelector("#timer").setAttribute("text","value:"+timer)
+	this.tick = AFRAME.utils.throttleTick(this.tick, 1000, this);
+	// details https://aframe.io/docs/1.0.0/core/utils.html#aframe-utils-throttle-function-minimuminterval-optionalcontext
+  },
+
+  tick: function (t, dt) {
+   var time = Number( document.querySelector("#timer").getAttribute("text").value )
+   time--
+   document.querySelector("#timer").setAttribute("text","value:"+(time))
+   },
+})
+
+AFRAME.registerComponent("relaxing-introduction", {
+  init: function() {
+	// get in flow state
+	// for now controlled just with AFrame animation
+	// cf https://aframe.io/docs/1.0.0/components/animation.html
+
+	setTimeout(function(){ 
+		for (var note of document.querySelectorAll(".notes")){ note.emit("fadein") }
+	}, 10 * 1000) // arbitrary 10s, should be instead after the introduction is finished
+  }
+})
+
+AFRAME.registerComponent("decompression-conclusion", {
+  init: function() {
+	// cf PoC at 2017 W3C web authoring workshop with Roland Dubois
+	setTimeout(function(){ 
+		var intructions = document.querySelector("#instructions")
+		instructions.setAttribute("position", "-1 1.5 -1") // assumes the user is roughtly centered... could force on camera instead
+		instructions.setAttribute("text", "value", "Your session will end soon\n\nVisit https://learnWebVR.xyz/flat.html\n\nto work outside of VR.") 
+		instructions.setAttribute("opacity", "1") // could be animated instead
+
+		console.log("X min voice over and notes fade-out with contextual information (time, weather, etc)")
+
+		document.querySelector("[environment]").setAttribute("environment", "preset:checkerboard")
+	}, timer * 1000);
+
+  }
+})
+
+AFRAME.registerComponent("environment-by-url", {
+  schema: {},
+  init: function() {
+    var environment = AFRAME.utils.getUrlParameter('environment')
+    if (environment) document.querySelector("[environment]").setAttribute("environment", "preset:" + environment)
+  }
+})
+
+AFRAME.registerComponent("photo-importer", {
+  schema: {},
+  init: function() {
+    var baseURL = "setup/"
+    var images = AFRAME.utils.getUrlParameter('customimages').split(',');
+    if (images.length == 1) window.location = baseURL; // no images? must be configured first
+    // could also display a tutorial instead
+    var i=1
+    for (var image of images){
+      if (image){
+         var id = "placeholder"+i
+         var placeholder = document.querySelector("#"+id)
+         if (!placeholder){
+		// TODO somehow not interactable anymore?!
+		// had a similar silly issue before but can't recall how I fixed it :(
+		// something basic about entities or hierarchy...
+                placeholder = document.createElement("a-box")
+                placeholder.id = id
+                placeholder.setAttribute("material", "shader:flat")
+                placeholder.setAttribute("hoverable", "")
+                placeholder.setAttribute("grabbable", "")
+                placeholder.setAttribute("draggable", "")
+                placeholder.setAttribute("dropppable", "")
+		// somehow does appear visually correct but are NOT interactable!
+                placeholder.setAttribute("position", "" + i/1.5-1.5 + " 1.5 -0.7")
+                placeholder.setAttribute("scale", "0.5 0.3 0.01")
+                // assume 1 * 1.5 photo ratio (landscape)
+                AFRAME.scenes[0].appendChild(placeholder)
+         }
+	 placeholder.className += "notes"
+	 placeholder.setAttribute("opacity", "0")
+	 placeholder.setAttribute("animation", "property: components.material.material.opacity; to: 1; dur: 1500; easing: linear; startEvents: fadein;")
+         placeholder.setAttribute("src", baseURL+image)
+         i++
+      }
+    }
+  }
+})
+
+
+</script>
+<body>
+  <a-scene photo-importer environment-by-url relaxing-introduction decompression-conclusion>
+      <a-entity environment="preset: forest;"></a-entity>
+
+      <a-entity sphere-collider="objects: a-box" super-hands hand-controls="left"></a-entity>
+      <a-entity sphere-collider="objects: a-box" super-hands hand-controls="right"></a-entity>
+
+	    <!-- could be wrist watch as I've done via Twitter years ago -->
+	    <a-text watch id="timer" rotation="180 0 180" position="0 1 2" value="time"></a-text>
+
+    <a-text id="instructions" position="-1 1.5 -0.65" value="welcome to your\n\nthink+relax space" opacity="0"
+	 animation__fadein="property: components.text.material.uniforms.opacity.value; to: 0.99; dur: 1500; easing: linear"
+	 animation__fadeout="property: components.text.material.uniforms.opacity.value; to: 0.01; dur: 1500; easing: linear; startEvents: fadeout;"
+	 animation__leave="property: object3D.position.z; to: -100; dur: 15000; easing: linear; delay: 2500;"
+	></a-text>
+    
+	
+    <a-text rotation="-20 20 0" position="-2 0.2 -2" scale="1 1 1" value="waiting"></a-text>
+    <a-box material="wireframe:true" color="orange" position="-2 1 -2" scale="2 2 2"></a-box>
+    <a-text rotation="-20 0 0" position=" 0 0.2 -2" scale="1 1 1" value="in progress"></a-text>
+    <a-box material="wireframe:true" color="red" position="0 1 -2" scale="2 2 2"></a-box>
+    <a-text rotation="-20 -20 0" position=" 2 0.2 -2" scale="1 1 1" value="completed"></a-text>
+    <a-box material="wireframe:true" color="green" position="2 1 -2" scale="2 2 2"></a-box>
+
+    <a-box material="shader:flat" id="placeholder1" hoverable grabbable stretchable draggable dropppable position="0.5 1.5 -0.5" scale="0.5 0.3 0.01"></a-box>
+    <a-box material="shader:flat" id="placeholder2" hoverable grabbable stretchable draggable dropppable position="0 1.9 -0.7" scale="0.5 0.3 0.01"></a-box>
+    <a-box material="shader:flat" id="placeholder3" hoverable grabbable stretchable draggable dropppable position="-0.5 1.5 -0.7" scale="0.5 0.3 0.01"></a-box>
+    <!-- somehow creating dynamically fails... even though it did (!) work at some point (but wasn't saved via git)-->
+    <!-- until then will rely on a pool of objects -->
+    
+  </a-scene>
+</body>
