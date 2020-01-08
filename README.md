@@ -25,7 +25,8 @@ to be freely organised in visual categories (e.g. kanban).
 1 ...
 
 ## Code
-frontend : index.html
+* frontend : `index.html` and `setup/index.html`
+* backend : `setup/server/upload.php`
 
 ## License
 MIT.
