@@ -1,0 +1,58 @@
+html {
+  background: #000;
+}
+
+#vrButton {
+  position: absolute;
+  background: url('../dist/assets/img/enter-vr-button-background.png') no-repeat;
+  background-size: cover;
+  border: 0;
+  cursor: pointer;
+  right: 20px;
+  bottom: 20px;
+  text-decoration: none;
+  z-index: 9999999;
+  width: 64px;
+  height: 64px;
+}
+
+#vrButton.a-hidden {
+  visibility: hidden;
+}
+
+#vrButton:active {
+  border: 0;
+}
+
+#vrButton:hover {
+  background-position: 0 -64.5px;
+}
+
+#vrButton p {
+  bottom: 45px;
+  color: #FFF;
+  font-size: 12px;
+  font-family: monospace;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.a-loader-title {
+  animation: loaderTitle 1s infinite alternate;
+  color: rgba(0,0,0,0);
+  background: none;
+  background-image: url('../dist/assets/img/loadingLogo.png');
+  height: 36.2vh;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-top: 0;
+  background-size: contain;
+}
+
+@keyframes loaderTitle {
+  0% { opacity: 1; }
+  50% { opacity: 0.8; }
+  100% { opacity: 1; }
+}

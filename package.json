@@ -1,0 +1,42 @@
+{
+  "name": "relax-think",
+  "version": "0.0.1",
+  "license": "CC-BY-NC-SA-4.0",
+  "description": "An infinite space for your big ideas",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "main": "index.js",
+  "dependencies": {},
+  "scripts": {
+    "start": "webpack-dev-server --mode development --host 192.168.0.12",
+    "build": "webpack --mode production --config webpack.config.js"
+  },
+  "keywords": [],
+  "author": "Arturo Paracuellos",
+  "devDependencies": {
+    "aframe-environment-component": "^2.0.0",
+    "aframe-super-hot-loader": "^1.7.0",
+    "aframe-super-hot-html-loader": "^2.1.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.7.0",
+    "css-loader": "^3.4.1",
+    "html-require-loader": "^1.0.1",
+    "json-loader": "^0.5.7",
+    "super-hands": "^3.0.0",
+    "style-loader": "^0.23.1",
+    "url-loader": "^1.1.2",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.7",
+    "webpack-dev-server": "^3.8.0",
+    "webpack-glsl-loader": "^1.0.1"
+  },
+  "standard": {
+    "globals": [
+      "AFRAME",
+      "THREE"
+    ]
+  }
+}
