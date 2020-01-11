@@ -69,3 +69,12 @@ The end of the session warning appears with the saving message and screenshot sh
 She smiles and removes the headset.
 She is still unsure she will be ready for her PhD but at least she feels confident she is forming in her mind and thus in her following papers a more synthetic structure of her field of research.
 She takes her phone out of her pocket, have a brief look at the screenshot preview and her better structured Dropbox folder then moves back to the other tasks she has to do for the day.
+
+![img1](UxResearch/ThinkRelaxMockups/01_UnOrganized.png)
+![img1](UxResearch/ThinkRelaxMockups/02_SpatialOrganization.png)
+![img1](UxResearch/ThinkRelaxMockups/02B_SpatialOrganization.png)
+![img1](UxResearch/ThinkRelaxMockups/03_FolderOrganization.png)
+![img1](UxResearch/ThinkRelaxMockups/04_SubFolderCreation.png)
+![img1](UxResearch/ThinkRelaxMockups/05_OpenSubFolder.png)
+![img1](UxResearch/ThinkRelaxMockups/06_SubFolderView.png)
+![img1](UxResearch/ThinkRelaxMockups/07_SubFolderOrganization.png)
