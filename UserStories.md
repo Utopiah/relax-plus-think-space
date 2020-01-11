@@ -92,3 +92,5 @@ She is still unsure she will be ready for her PhD but at least she feels confide
 She takes her phone out of her pocket, have a brief look at the screenshot preview and her better structured Dropbox folder then moves back to the other tasks she has to do for the day.
 
 PS: illustrations are in `UxResearch/ThinkRelaxMockups` with `UxResearch/3dMockup` for Sketchup source.
+Illustrations fall under CC-BY-NC-SA-4.0
+CreativeCommons Attribution-NonCommercial-ShareAlike 4.0 International.
