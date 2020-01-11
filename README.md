@@ -25,7 +25,7 @@ to be freely organised in visual categories (e.g. kanban).
 1 ...
 
 ## Code
-* frontend : `index.html` and `setup/index.html`
+* frontend : mostly `index.html` but also to prepare a session `setup/index.html` and `flat.html` to review after (and before the next)
 * backend : `setup/server/upload.php`
 
 ## License
