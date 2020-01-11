@@ -87,4 +87,8 @@ The end of the session warning appears with the saving message and screenshot sh
 
 She smiles and removes the headset.
 She is still unsure she will be ready for her PhD but at least she feels confident she is forming in her mind and thus in her following papers a more synthetic structure of her field of research.
+
+
 She takes her phone out of her pocket, have a brief look at the screenshot preview and her better structured Dropbox folder then moves back to the other tasks she has to do for the day.
+
+PS: illustrations are in `UxResearch/ThinkRelaxMockups` with `UxResearch/3dMockup` for Sketchup source.
