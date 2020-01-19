@@ -3,11 +3,11 @@ function requireAll (req) { req.keys().forEach(req); }
 console.time = () => {};
 console.timeEnd = () => {};
 
-require('aframe-environment-component')
-require('aframe-aabb-collider-component');
-require('./lib/DragControls.js');
+require('aframe-environment-component');
+require('aframe-event-set-component');
+
+require('./components/aabb-collider');
 require('./components/grab');
-require('./components/drag-controls');
 
 require('./index.css')
 
