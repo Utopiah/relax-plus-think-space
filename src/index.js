@@ -4,7 +4,10 @@ console.time = () => {};
 console.timeEnd = () => {};
 
 require('aframe-environment-component')
-require('super-hands')
+require('aframe-aabb-collider-component');
+require('./lib/DragControls.js');
+require('./components/grab');
+require('./components/drag-controls');
 
 require('./index.css')
 

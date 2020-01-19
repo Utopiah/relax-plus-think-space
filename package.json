@@ -10,12 +10,13 @@
   "main": "index.js",
   "dependencies": {},
   "scripts": {
-    "start": "webpack-dev-server --mode development --host 192.168.0.12",
+    "start": "webpack-dev-server --mode development --host 0.0.0.0",
     "build": "webpack --mode production --config webpack.config.js"
   },
   "keywords": [],
   "author": "Arturo Paracuellos",
   "devDependencies": {
+    "aframe-aabb-collider-component": "^3.2.0",
     "aframe-environment-component": "^2.0.0",
     "aframe-super-hot-loader": "^1.7.0",
     "aframe-super-hot-html-loader": "^2.1.0",
@@ -25,7 +26,6 @@
     "css-loader": "^3.4.1",
     "html-require-loader": "^1.0.1",
     "json-loader": "^0.5.7",
-    "super-hands": "^3.0.0",
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.2",
     "webpack": "^4.39.3",
