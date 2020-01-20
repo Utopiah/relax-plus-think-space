@@ -13,7 +13,29 @@
                 material="color: #EF2D5E;">
         </a-mixin>
     </a-assets>
-
+    <!-- Board -->
+    <a-entity
+        position="-1 2 -1"
+        text="color: white; align: center; width: 2; font: exo2semibold;
+              value: To Do"
+      ></a-entity>
+    <a-entity
+      position="0 2 -1"
+      text="color: white; align: center; width: 2; font: exo2semibold;
+            value: Doing"
+    ></a-entity>
+    <a-entity
+      position="1 2 -1"
+      text="color: white; align: center; width: 2; font: exo2semibold;
+            value: Done"
+    ></a-entity>
+    <!-- End message-->
+    <a-entity id="endMessage"
+      position="0 2.2 -1"
+      text="color: #FFCC00; align: center; width: 4; font: exo2semibold;
+            value: SESSION FINISHED" visible="false"
+    ></a-entity>
+    <!-- Stickers -->
     <a-entity position="0 0 -0.5">
         <a-entity class="cube" mixin="cube" position="0.30 1.05 0"></a-entity>
         <a-entity class="cube" mixin="cube" position="0 1.35 0"></a-entity>
@@ -21,6 +43,9 @@
     </a-entity>
 
     <a-entity environment="preset: forest;"></a-entity>
-    <a-entity hand-controls="left" aabb-collider="objects: .cube;" grab></a-entity>
+    <a-entity hand-controls="left" aabb-collider="objects: .cube;" grab>
+        <a-entity watch id="watch"  position="-0.02 -0.005 0.16" rotation="0 -90 180" text="color: white; align: center; width: .5; font: exo2semibold;
+            value: 00:59"></a-entity>
+    </a-entity>
     <a-entity hand-controls="right" aabb-collider="objects: .cube;" grab></a-entity>
 </a-scene>

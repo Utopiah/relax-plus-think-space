@@ -8,6 +8,7 @@ require('aframe-event-set-component');
 
 require('./components/aabb-collider');
 require('./components/grab');
+require('./components/watch');
 
 require('./index.css')
 
